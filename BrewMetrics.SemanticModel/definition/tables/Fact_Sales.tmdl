@@ -20,6 +20,21 @@ table Fact_Sales
 		formatString: 0.00\ %;-0.00\ %;0.00\ %
 		lineageTag: 6ada321c-05a1-4a88-9c28-6be9bf66b7f1
 
+	measure 'Running Total' = ```
+			
+			CALCULATE (
+			    [Total Sales],
+			    FILTER (
+			        ALLSELECTED ( Dim_Date[Date] ),
+			        Dim_Date[Date] <= MAX ( Dim_Date[Date] )
+			    )
+			)
+			
+			```
+		lineageTag: 013b0fbc-bdb9-41a8-8115-41e295f6cb67
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column StoreKey
 		dataType: string
 		lineageTag: 33ea3eb1-5438-40a2-8f05-0c4621957ca3

@@ -2,6 +2,16 @@ table Dim_Date
 	lineageTag: 6ad8a33f-2791-43f6-a91d-4e12a3f6d5cc
 	dataCategory: Time
 
+	measure 'Cold Brew Share %' =
+			
+			DIVIDE (
+			    CALCULATE ( [Total Sales], Dim_Product[item] = "Cold Brew" ),
+			    [Total Sales]
+			)
+		lineageTag: 78f7ecbd-19f9-496f-8f20-4d0ef39e826c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column Date
 		isKey
 		formatString: General Date

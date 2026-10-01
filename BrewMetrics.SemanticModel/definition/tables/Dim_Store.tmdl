@@ -1,0 +1,43 @@
+table Dim_Store
+	lineageTag: 4135d54b-aae0-4f3b-86c1-5431440d3c5a
+
+	column city
+		dataType: string
+		lineageTag: 6446e1c7-0b61-4eb3-b39e-c50977bc101d
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_format
+		dataType: string
+		lineageTag: 8a443e07-fed9-4278-ae89-46c0b23cd74c
+		summarizeBy: none
+		sourceColumn: store_format
+
+		annotation SummarizationSetBy = Automatic
+
+	column StoreKey
+		dataType: string
+		lineageTag: 5303696a-7e92-4c31-9dcd-573a27846248
+		summarizeBy: none
+		sourceColumn: StoreKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Store = m
+		mode: import
+		source =
+				let
+				    Source = Raw_sales,
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"city", "store_format"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
+				    #"Added Custom" = Table.AddColumn(#"Removed Duplicates", "StoreKey", each [city] & "-" & [store_format]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"StoreKey", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

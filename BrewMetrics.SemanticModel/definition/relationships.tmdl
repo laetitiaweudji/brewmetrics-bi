@@ -1,0 +1,12 @@
+relationship AutoDetected_f5ec111f-9d6f-4d6a-81bb-9672cb265b56
+	fromColumn: Fact_Sales.item
+	toColumn: Dim_Product.item
+
+relationship 7cfe040c-b8ae-31ab-f98b-457a741ea8a8
+	fromColumn: Fact_Sales.date
+	toColumn: Dim_Date.Date
+
+relationship AutoDetected_a918015c-c509-4504-ab55-bc2ca0fe1f1e
+	fromColumn: Fact_Sales.StoreKey
+	toColumn: Dim_Store.StoreKey
+

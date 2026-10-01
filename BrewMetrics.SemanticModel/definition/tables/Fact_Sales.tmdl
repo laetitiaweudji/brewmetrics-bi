@@ -1,0 +1,82 @@
+table Fact_Sales
+	lineageTag: 0bd6b38f-a2eb-4c11-b0b6-45bdb17c4bf7
+
+	column StoreKey
+		dataType: string
+		lineageTag: 33ea3eb1-5438-40a2-8f05-0c4621957ca3
+		summarizeBy: none
+		sourceColumn: StoreKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_amount
+		dataType: double
+		lineageTag: fb4c62ef-0374-4609-9075-560dbd4b4f5c
+		summarizeBy: sum
+		sourceColumn: sales_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column unit_price
+		dataType: int64
+		formatString: 0
+		lineageTag: b01d8a40-acd0-43d9-8242-f3ed57eb0bd5
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: f079ec08-2519-40d5-9287-1468ddeb1883
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column item
+		dataType: string
+		lineageTag: 574e320c-075a-4b0c-95df-2898630e40e2
+		summarizeBy: none
+		sourceColumn: item
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 68229aae-c41a-47f3-87f8-2e6b85629162
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column sale_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9555fa91-f087-46bf-8c75-9710ccac2ad4
+		summarizeBy: sum
+		sourceColumn: sale_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Sales = m
+		mode: import
+		source =
+				let
+				    Source = Raw_sales,
+				    #"Added Custom" = Table.AddColumn(Source, "StoreKey", each [city] & "-" & [store_format]),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Added Custom",{"StoreKey", "sales_amount", "unit_price", "quantity", "item", "date", "sale_id"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"StoreKey", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

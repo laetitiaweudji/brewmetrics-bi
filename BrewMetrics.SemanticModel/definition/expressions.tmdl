@@ -1,0 +1,14 @@
+expression Raw_sales =
+		let
+		    Source = Csv.Document(File.Contents("C:\Users\laeti\Desktop\KCT\brewmetrucs project\brewmetrics-bi\brewmetrics_sales (1).csv"),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"sale_id", Int64.Type}, {"date", type date}, {"city", type text}, {"store_format", type text}, {"category", type text}, {"item", type text}, {"quantity", Int64.Type}, {"unit_price", Int64.Type}, {"sales_amount", type text}}),
+		    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Changed Type", {{"sales_amount", type number}}, "en-US")
+		in
+		    #"Changed Type with Locale"
+	lineageTag: 834d852c-461e-49ff-9587-367ab3de893d
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

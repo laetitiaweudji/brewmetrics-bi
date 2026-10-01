@@ -1,0 +1,58 @@
+table Dim_Date
+	lineageTag: 6ad8a33f-2791-43f6-a91d-4e12a3f6d5cc
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: General Date
+		lineageTag: d6d7e351-15a5-4f7b-94e3-ec50a4fb6bab
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		lineageTag: 449766bc-1918-47e7-9e82-280261d7dd49
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month]
+		sortByColumn: MonthNo
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNo
+		formatString: 0
+		lineageTag: 62c23d26-1694-4cb3-aeb2-fe15e528a004
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthNo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		formatString: 0
+		lineageTag: a435679f-a770-4ffc-9da1-cecf886c40f5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Day]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weekday
+		lineageTag: 49bc4699-1e96-4a95-a378-3f2a1ca904db
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Weekday]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Date = calculated
+		mode: import
+		source =
+				ADDCOLUMNS(CALENDAR(DATE(2026,4,1), DATE(2026,7,1)),
+				  "Month", FORMAT([Date],"mmm"), "MonthNo", MONTH([Date]),
+				  "Day", DAY([Date]), "Weekday", FORMAT([Date],"ddd"))
+
+	annotation PBI_Id = 5a2269807cbd42e1a194caff73fb3f63
+

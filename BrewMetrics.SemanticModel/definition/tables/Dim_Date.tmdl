@@ -8,9 +8,8 @@ table Dim_Date
 			    CALCULATE ( [Total Sales], Dim_Product[item] = "Cold Brew" ),
 			    [Total Sales]
 			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
 		lineageTag: 78f7ecbd-19f9-496f-8f20-4d0ef39e826c
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column Date
 		isKey

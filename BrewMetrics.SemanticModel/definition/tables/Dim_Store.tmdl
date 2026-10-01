@@ -25,6 +25,17 @@ table Dim_Store
 
 		annotation SummarizationSetBy = Automatic
 
+	hierarchy 'city Hierarchy'
+		lineageTag: 09fda74c-4b5b-4073-959c-c1a44a1164ce
+
+		level city
+			lineageTag: 5498a7c8-486b-4b63-af1b-b23e8883d78c
+			column: city
+
+		level store_format
+			lineageTag: eede1844-90d0-4880-bed5-16cbec187cae
+			column: store_format
+
 	partition Dim_Store = m
 		mode: import
 		source =

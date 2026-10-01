@@ -1,0 +1,156 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "33276a54c7f6e2792e6e",
+  "position": {
+    "x": 702.98507462686564,
+    "y": 122.38805970149254,
+    "z": 2000,
+    "height": 394.02985074626861,
+    "width": 626.865671641791,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Store"
+                        }
+                      },
+                      "Hierarchy": "city Hierarchy"
+                    }
+                  },
+                  "Level": "city"
+                }
+              },
+              "queryRef": "Dim_Store.city Hierarchy.city",
+              "nativeQueryRef": "city Hierarchy city",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Store"
+                        }
+                      },
+                      "Hierarchy": "city Hierarchy"
+                    }
+                  },
+                  "Level": "store_format"
+                }
+              },
+              "queryRef": "Dim_Store.city Hierarchy.store_format",
+              "nativeQueryRef": "city Hierarchy store_format",
+              "active": false
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Sales"
+                    }
+                  },
+                  "Property": "Total Sales"
+                }
+              },
+              "queryRef": "Fact_Sales.Total Sales",
+              "nativeQueryRef": "Total Sales"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_Sales"
+                  }
+                },
+                "Property": "Total Sales"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "ee2efa0ef39a4603856e",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Dim_Store"
+                  }
+                },
+                "Hierarchy": "city Hierarchy"
+              }
+            },
+            "Level": "city"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "9fe41b0405b9ba42bfe0",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Dim_Store"
+                  }
+                },
+                "Hierarchy": "city Hierarchy"
+              }
+            },
+            "Level": "store_format"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "86ca3a02061d772f770b",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Sales"
+              }
+            },
+            "Property": "Total Sales"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

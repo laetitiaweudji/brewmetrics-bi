@@ -1,6 +1,25 @@
 table Fact_Sales
 	lineageTag: 0bd6b38f-a2eb-4c11-b0b6-45bdb17c4bf7
 
+	measure 'Total Sales' =
+			
+			SUM ( Fact_Sales[sales_amount] )
+		lineageTag: 8de65ebf-1fe0-4944-864c-f55edc1c421c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales MoM %' = ```
+			
+			VAR CurrentSales = [Total Sales]
+			VAR PrevSales =
+			    CALCULATE ( [Total Sales], DATEADD ( Dim_Date[Date], -1, MONTH ) )
+			RETURN
+			    DIVIDE ( CurrentSales - PrevSales, PrevSales )
+			
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 6ada321c-05a1-4a88-9c28-6be9bf66b7f1
+
 	column StoreKey
 		dataType: string
 		lineageTag: 33ea3eb1-5438-40a2-8f05-0c4621957ca3

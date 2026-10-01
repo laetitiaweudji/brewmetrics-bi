@@ -35,6 +35,17 @@ table Fact_Sales
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure 'Item Rank' = ```
+			
+			IF (
+			    ISINSCOPE ( Dim_Product[item] ),
+			    RANKX ( ALL ( Dim_Product[item] ), [Total Sales], , DESC, DENSE )
+			)
+			
+			```
+		formatString: 0
+		lineageTag: d0d67d3e-af9e-40f2-93d2-950903436461
+
 	column StoreKey
 		dataType: string
 		lineageTag: 33ea3eb1-5438-40a2-8f05-0c4621957ca3
